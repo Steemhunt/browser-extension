@@ -1,0 +1,39 @@
+{
+  "name": "Steemhunt",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Steemhunt's chrome extension",
+  "icons": {
+    "16": "images/sh_16.png",
+    "32": "images/sh_32.png",
+    "48": "images/sh_48.png",
+    "128": "images/sh_128.png"
+  },
+  "permissions": [
+    "*://api.steemhunt.com/*",
+    "storage",
+    "tabs"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "chrome_url_overrides": {
+    "newtab": "main.html"
+  },
+  "browser_action": {
+    "default_title": "Steemhunt",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/sh_16.png",
+      "32": "images/sh_32.png",
+      "48": "images/sh_48.png",
+      "128": "images/sh_128.png"
+    }
+  },
+  "web_accessible_resources": [
+    "images/logo.png"
+  ],
+  "default_locale": "en"
+}

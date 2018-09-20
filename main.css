@@ -1,0 +1,171 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: Comfortaa,cursive;
+    font-weight: 700;
+    margin: 0px 0px 8px 0px;
+}
+
+body, html, p, span {
+    font-family: Open Sans,sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+#darkModeToggler {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.primary-text {
+  color: #fc6f6f;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.normal-text {
+  color: #9b9b9b;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.55;
+  letter-spacing: normal;
+}
+
+.svg-icon {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+div#aboutSteemHunt {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 88px;
+}
+
+div#aboutSteemHunt img {
+  height: 55px;
+  margin-bottom: 38px;
+}
+
+div#aboutSteemHunt h1 {
+  text-align: right;
+  font-size: 26px;
+}
+
+div#aboutSteemHunt p {
+  text-align: right;
+  font-size: 17px;
+}
+
+.products-title-container {
+  margin-top: 45px;
+}
+
+.products-title-container h2 {
+  font-size: 22px
+}
+
+.products-title-container p {
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-container {
+  float: left;
+  height: 340px;
+  margin: 10px;
+  width: 300px;
+  position: relative;
+}
+
+.product-container a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.product-container .image-overlay {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.product-container img {
+  border-radius: 4px;
+  width: 300px;
+  height: 200px;
+  max-height: 200px;
+  max-width: 300px;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.product-container p {
+    line-height: normal;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.huntinfo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.huntinfo-container span {
+  font-weight: normal;
+  margin-right: 5px;
+}
+
+.app-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 799px) {
+  .app-container {
+      max-width: 320px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .app-container {
+      max-width: 640px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .app-container {
+      max-width: 960px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .app-container {
+    max-width: 1280px;
+  }
+}
