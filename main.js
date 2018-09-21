@@ -1,17 +1,21 @@
+const perDay = 12;
 let currentPage = 1;
-let perDay = 12;
 let loadingProducts = true;
-let $listContainer = document.getElementById('listContainer');
-let $head = document.getElementsByTagName('head')[0];
 
-function get(url) {
+const $listContainer = document.getElementById('listContainer');
+const $head = document.getElementsByTagName('head')[0];
+const $darkModeToggler = document.getElementById('dark-mode-toggler');
+const $usernameInput = document.getElementById('username');
+const $profilePicture = document.getElementById('profile-image');
+
+function request(method, url) {
   return new Promise(function(resolve, reject) {
     var req = new XMLHttpRequest();
-    req.open('GET', url);
+    req.open(method, url);
 
     req.onload = function() {
       if (req.status == 200) {
-        resolve(req.response);
+        resolve(JSON.parse(req.response));
       }
       else {
         reject(Error(req.statusText));
@@ -65,6 +69,10 @@ function loadDefault() {
   chrome.storage.sync.get('darkMode', function(data) {
     toggleDarkCss(data.darkMode);
   });
+
+  chrome.storage.sync.get('username', function(data) {
+    handleUsernameChanged(data.username);
+  });
 }
 
 function productTemplate(product) {
@@ -113,11 +121,10 @@ function productListTemplate(res, day) {
 
 function getPosts(day) {
   loadingProducts = true;
-  get("https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(res) {
-    const response = JSON.parse(res);
-    productListTemplate(response, day);
+  request('GET', "https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(res) {
+    productListTemplate(res, day);
     loadingProducts = false;
-  })
+  });
 }
 
 function nextPage() {
@@ -134,11 +141,54 @@ function toggleDarkCss(darkMode) {
   }
 }
 
-document.getElementById('dark-mode-toggler').addEventListener('click', function() {
+function logSession(username) {
+  request('POST', 'http://localhost:3001/hunt_transactions/extensions.json?username=' + username).then(function(res) {
+    console.log('Logged: ' + username);
+    if (res.error === 'USER_NOT_FOUND') {
+      alert("You haven't signed up on Steemhunt. Please login via Steemconnect on Steemhunt to get your HUNT bounty!");
+      handleUsernameChanged(null);
+    }
+  });
+}
+
+function handleUsernameChanged(username) {
+  console.log('User: ' + username);
+
+  if (username) {
+    $profilePicture.src = `https://img.busy.org/@${username}?s=48"`;
+    $usernameInput.style.display = 'none';
+    $profilePicture.style.display = 'block';
+
+    logSession(username);
+  } else {
+    $usernameInput.style.display = 'block';
+    $profilePicture.style.display = 'none';
+  }
+}
+
+$darkModeToggler.addEventListener('click', function() {
   chrome.storage.sync.get('darkMode', function(data) {
-    chrome.storage.sync.set({darkMode: !data.darkMode}, function() {
+    chrome.storage.sync.set({ darkMode: !data.darkMode }, function() {
       toggleDarkCss(!data.darkMode);
-    })
+    });
+  });
+});
+
+$usernameInput.addEventListener('keypress', function (e) {
+  var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      chrome.storage.sync.set({ username: $usernameInput.value }, function() {
+        handleUsernameChanged($usernameInput.value);
+      });
+    }
+});
+
+$profilePicture.addEventListener('click', function() {
+  chrome.storage.sync.get('username', function(data) {
+    chrome.storage.sync.set({ username: null }, function() {
+      handleUsernameChanged(null);
+      $usernameInput.value = data.username;
+    });
   });
 });
 
