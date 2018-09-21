@@ -1,9 +1,8 @@
-let listContainer = document.getElementById('listContainer');
 let currentPage = 1;
 let perDay = 12;
 let loadingProducts = true;
-let aboutSteemHunt = document.getElementById('aboutSteemHunt');
-let head = document.getElementsByTagName('head')[0];
+let $listContainer = document.getElementById('listContainer');
+let $head = document.getElementsByTagName('head')[0];
 
 function get(url) {
   return new Promise(function(resolve, reject) {
@@ -63,13 +62,6 @@ function daysAgoToString(daysAgo) {
 }
 
 function loadDefault() {
-  aboutSteemHunt.insertAdjacentHTML('beforeend', `
-    <img src=${chrome.extension.getURL('images/logo.png')}>
-    <div>
-      <h1 class="primary-text">Steemhunt</h1>
-      <p class="normal-text">Daily Ranking for Effortlessly Cool Products<br>That Rewards Hunters</p>
-    </div>
-  `);
   chrome.storage.sync.get('darkMode', function(data) {
     toggleDarkCss(data.darkMode);
   });
@@ -104,7 +96,7 @@ function productListTemplate(products, day) {
     productsTemplate += productTemplate(product)
   }
   products.forEach(function(pp) { totalPayout = totalPayout + pp.payout_value })
-  listContainer.insertAdjacentHTML('beforeend', `
+  $listContainer.insertAdjacentHTML('beforeend', `
     <div class="products-title-container">
       <h2 class="primary-text">${daysAgoToString(day)}</h2>
       <p class="normal-text"><span class="bold-text">${formatInt(products.length)}</span> products. <span class="bold-text">$${formatFloat(totalPayout)}</span> SBD hunter's rewards were generated.</p>
@@ -118,7 +110,6 @@ function productListTemplate(products, day) {
 function getPosts(day) {
   loadingProducts = true;
   get("https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(res) {
-    console.log(res);
     const response = JSON.parse(res);
     productListTemplate(response.posts, day);
     loadingProducts = false;
@@ -133,7 +124,7 @@ function nextPage() {
 function toggleDarkCss(darkMode) {
   const darkStyle = document.querySelector("link[href='dark.css']");
   if (darkMode) { // to dark mode
-    head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="dark.css">');
+    $head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="dark.css">');
   } else if (darkStyle !== null) { // to light mode
     darkStyle.remove();
   }
