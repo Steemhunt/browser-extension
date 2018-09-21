@@ -28,8 +28,8 @@ function get(url) {
 
 function getDistFromBottom () {
   var scrollPosition = window.pageYOffset;
-  var windowSize     = window.innerHeight;
-  var bodyHeight     = document.body.offsetHeight;
+  var windowSize = window.innerHeight;
+  var bodyHeight = document.body.offsetHeight;
 
   return Math.max(bodyHeight - (scrollPosition + windowSize), 0);
 }
@@ -75,31 +75,35 @@ function productTemplate(product) {
       <a href=${'https://steemhunt.com/@' + product.author + '/' + product.permlink}>
         <div class="image-overlay"></div>
         <img src=${product.images[0].link} />
-        <h3 class="primary-text">${product.title}</h3>
-        <p class="normal-text">${product.tagline}</p>
-        <div class="huntinfo-container">
-          <span class="primary-text">${"$" + formatFloat(Math.round(product.payout_value*100)/100)}</span>
-          <span class="normal-text svg-icon">${upvoteIcon}</span>
-          <span class="normal-text">${formatInt(product.children)}</span>
-          <span class="normal-text svg-icon">${talkIcon}</span>
-          <span class="normal-text">${formatInt(product.valid_votes.length)}</span>
+        <h3 class="primary">${product.title}</h3>
+        <div class="stats">
+          <span class="primary">${"$" + formatFloat(Math.round(product.payout_value*100)/100)}</span>
+          <span class="middot">&middot;</span>
+          <span class="svg-icon">${upvoteIcon}</span>
+          <span>${formatInt(product.children)}</span>
+          <span class="middot">&middot;</span>
+          <span class="svg-icon">${talkIcon}</span>
+          <span>${formatInt(product.valid_votes.length)}</span>
         </div>
+        <p class="tagline">${product.tagline}</p>
       </a>
     </div>
   `;
 }
 
-function productListTemplate(products, day) {
+function productListTemplate(res, day) {
   let productsTemplate = '';
-  let totalPayout = 0;
-  for (let product of products) {
-    productsTemplate += productTemplate(product)
+  for (let product of res.posts) {
+    productsTemplate += productTemplate(product);
   }
-  products.forEach(function(pp) { totalPayout = totalPayout + pp.payout_value })
+
   $listContainer.insertAdjacentHTML('beforeend', `
     <div class="products-title-container">
-      <h2 class="primary-text">${daysAgoToString(day)}</h2>
-      <p class="normal-text"><span class="bold-text">${formatInt(products.length)}</span> products. <span class="bold-text">$${formatFloat(totalPayout)}</span> SBD hunter's rewards were generated.</p>
+      <h2 class="primary">${daysAgoToString(day)}</h2>
+      <p>
+        <b>${formatInt(res.total_count)}</b> products,
+        <b>$${formatFloat(res.total_payout)}</b> SBD hunter's rewards were generated.
+      </p>
     </div>
     <div class="products-container" id=${'productsContainer' + day}>
       ${productsTemplate}
@@ -111,7 +115,7 @@ function getPosts(day) {
   loadingProducts = true;
   get("https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(res) {
     const response = JSON.parse(res);
-    productListTemplate(response.posts, day);
+    productListTemplate(response, day);
     loadingProducts = false;
   })
 }
@@ -130,7 +134,7 @@ function toggleDarkCss(darkMode) {
   }
 }
 
-document.getElementById('darkModeToggler').addEventListener('click', function() {
+document.getElementById('dark-mode-toggler').addEventListener('click', function() {
   chrome.storage.sync.get('darkMode', function(data) {
     chrome.storage.sync.set({darkMode: !data.darkMode}, function() {
       toggleDarkCss(!data.darkMode);

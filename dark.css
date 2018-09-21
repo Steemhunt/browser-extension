@@ -1,7 +1,17 @@
 body {
-  background: #4e4e4e !important;
+  background: #333 !important;
+  color: #ddd;
 }
 
-.normal-text {
-  color: #e3e3e3;
+a, a:active, a:hover, a:visited {
+  text-decoration: none;
+  color: #ddd;
+}
+
+.products-title-container p b {
+  color: #fff;
+}
+
+.about-steemhunt .right .sub-title {
+  color: #ddd;
 }
