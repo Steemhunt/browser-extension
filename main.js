@@ -117,9 +117,10 @@ function productListTemplate(products, day) {
 
 function getPosts(day) {
   loadingProducts = true;
-  get("https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(response) {
-    window.posts = response
-    productListTemplate(JSON.parse(response).slice(0, perDay), day);
+  get("https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(res) {
+    console.log(res);
+    const response = JSON.parse(res);
+    productListTemplate(response.posts, day);
     loadingProducts = false;
   })
 }

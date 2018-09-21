@@ -1,14 +1,14 @@
-h1, h2, h3, h4, h5, h6 {
-    font-family: Comfortaa,cursive;
-    font-weight: 700;
-    margin: 0px 0px 8px 0px;
-}
-
-body, html, p, span {
+html, body, p, span {
     font-family: Open Sans,sans-serif;
     font-size: 16px;
     margin: 0;
     padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Comfortaa,cursive;
+    font-weight: 700;
+    margin: 0px 0px 8px 0px;
 }
 
 a {
