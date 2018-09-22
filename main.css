@@ -43,6 +43,7 @@ a, a:active, a:hover, a:visited {
   border: 1px solid #ccc;
   padding: 4px 8px;
   margin-bottom: 8px;
+  outline: none;
 }
 
 .options img {
@@ -209,4 +210,28 @@ a, a:active, a:hover, a:visited {
   .app-container {
   max-width: 1245px;
   }
+}
+
+/* Alert */
+
+.alert {
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 3px 11px -8px rgba(0,0,0,0.54);
+  background-image: linear-gradient(to top, #fa7f92, #fc6f6f);
+  border: none;
+  width: 400px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  padding: 20px;
+  color: #fff;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.alert.hidden {
+  right: -500px;
+  opacity: 0;
 }

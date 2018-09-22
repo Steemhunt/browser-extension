@@ -7,6 +7,7 @@ const $head = document.getElementsByTagName('head')[0];
 const $darkModeToggler = document.getElementById('dark-mode-toggler');
 const $usernameInput = document.getElementById('username');
 const $profilePicture = document.getElementById('profile-image');
+const $alert = document.getElementById('alert');
 
 function request(method, url) {
   return new Promise(function(resolve, reject) {
@@ -150,25 +151,27 @@ function toggleDarkCss(darkMode) {
   }
 }
 
-function logSession(username) {
-  request('POST', 'https://api.steemhunt.com/hunt_transactions/extensions.json?username=' + username).then(function(res) {
-    // console.log('Logged: ' + username);
-    if (res.error === 'USER_NOT_FOUND') {
-      alert("You haven't signed up on Steemhunt. Please login via Steemconnect on Steemhunt to get your HUNT bounty!");
-      handleUsernameChanged(null);
-    }
-  });
-}
-
 function handleUsernameChanged(username) {
   // console.log('User: ' + username);
 
   if (username) {
-    $profilePicture.src = `https://img.busy.org/@${username}?s=48"`;
-    $usernameInput.style.display = 'none';
-    $profilePicture.style.display = 'block';
+    request('POST', 'https://api.steemhunt.com/hunt_transactions/extensions.json?username=' + username).then(function(res) {
+      // console.log('Logged: ' + username);
+      if (res.error === 'USER_NOT_FOUND') {
+        $alert.classList.remove('hidden');
+        setTimeout(function () {
+          $alert.classList.add('hidden');
+        }, 4000);
+        handleUsernameChanged(null);
 
-    logSession(username);
+        return;
+      }
+
+      chrome.storage.sync.set({ username: username });
+      $profilePicture.src = `https://img.busy.org/@${username}?s=48"`;
+      $usernameInput.style.display = 'none';
+      $profilePicture.style.display = 'block';
+    });
   } else {
     $usernameInput.style.display = 'block';
     $profilePicture.style.display = 'none';
@@ -186,9 +189,7 @@ $darkModeToggler.addEventListener('click', function() {
 $usernameInput.addEventListener('keypress', function (e) {
   var key = e.which || e.keyCode;
     if (key === 13) { // 13 is enter
-      chrome.storage.sync.set({ username: $usernameInput.value }, function() {
-        handleUsernameChanged($usernameInput.value);
-      });
+      handleUsernameChanged($usernameInput.value);
     }
 });
 

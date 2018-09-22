@@ -1,30 +1,33 @@
-  <!DOCTYPE html>
-  <html lang=en-us>
-    <head>
-      <meta charset=UTF-8>
-      <title>Steemhunt</title>
-      <link rel="stylesheet" href="main.css">
-      <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Open+Sans:300,400,600" rel="stylesheet">
-    </head>
-    <body>
-      <div class="app-container">
-        <div class="options">
-          <div class="user-container">
-            <input type="text" id="username" class="username" placeholder="Enter your username" />
-            <img src="https://img.busy.org/@steemhunt?s=48" id="profile-image" style="display: none;"/>
-          </div>
-          <div id="dark-mode-toggler" class="dark-mode-toggler">🌓</div>
+<!DOCTYPE html>
+<html lang=en-us>
+  <head>
+    <meta charset=UTF-8>
+    <title>Steemhunt</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Open+Sans:300,400,600" rel="stylesheet">
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="options">
+        <div class="user-container">
+          <input type="text" id="username" class="username" placeholder="Enter your username" />
+          <img src="https://img.busy.org/@steemhunt?s=48" id="profile-image" style="display: none;"/>
         </div>
-        <div class="about-steemhunt">
-          <a href="https://steemhunt.com" class="primary"><img src="images/logo.png" /></a>
-          <div class="right">
-            <h1><a href="https://steemhunt.com" class="primary">Steemhunt</a></h1>
-            <a href="https://steemhunt.com" class="sub-title">Daily Ranking for Effortlessly Cool Products<br/>That Rewards Hunters</a>
-          </div>
-        </div>
-        <div class="list-container" id="listContainer"></div>
+        <div id="dark-mode-toggler" class="dark-mode-toggler">🌓</div>
       </div>
-    </body>
+      <div class="about-steemhunt">
+        <a href="https://steemhunt.com" class="primary"><img src="images/logo.png" /></a>
+        <div class="right">
+          <h1><a href="https://steemhunt.com" class="primary">Steemhunt</a></h1>
+          <a href="https://steemhunt.com" class="sub-title">Daily Ranking for Effortlessly Cool Products<br/>That Rewards Hunters</a>
+        </div>
+      </div>
+      <div class="list-container" id="listContainer"></div>
+    </div>
+    <div id="alert" class="alert hidden">
+      Account doesn't exist on Steemhunt. Please login via Steemconnect on Steemhunt to get your HUNT bounty!
+    </div>
+  </body>
   <script src="vendors/moment.min.js"></script>
   <script src="main.js"></script>
 </html>
