@@ -113,7 +113,7 @@ function productListTemplate(res, day) {
         <b>$${formatFloat(res.total_payout)}</b> SBD hunter's rewards were generated.
       </p>
     </div>
-    <div class="products-container" id=${'productsContainer' + day}>
+    <div class="products-container" id="${'productsContainer' + day}">
       ${productsTemplate}
     </div>
   `)
@@ -201,3 +201,16 @@ document.addEventListener('scroll', function() {
 
 loadDefault();
 getPosts(currentPage);
+
+
+// Google Analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-77286486-3']);
+_gaq.push(['_set', 'campaignParams', 'utm_campaign=EXTENSION_MAIN&utm_source=CHROME_EXTENSION&utm_medium=EXTENSION']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = 'https://ssl.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
