@@ -151,8 +151,8 @@ function toggleDarkCss(darkMode) {
 }
 
 function logSession(username) {
-  request('POST', 'http://localhost:3001/hunt_transactions/extensions.json?username=' + username).then(function(res) {
-    console.log('Logged: ' + username);
+  request('POST', 'https://api.steemhunt.com/hunt_transactions/extensions.json?username=' + username).then(function(res) {
+    // console.log('Logged: ' + username);
     if (res.error === 'USER_NOT_FOUND') {
       alert("You haven't signed up on Steemhunt. Please login via Steemconnect on Steemhunt to get your HUNT bounty!");
       handleUsernameChanged(null);
@@ -161,7 +161,7 @@ function logSession(username) {
 }
 
 function handleUsernameChanged(username) {
-  console.log('User: ' + username);
+  // console.log('User: ' + username);
 
   if (username) {
     $profilePicture.src = `https://img.busy.org/@${username}?s=48"`;
