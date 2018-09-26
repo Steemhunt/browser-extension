@@ -132,8 +132,13 @@ function productListTemplate(res, day) {
 function getPosts(day) {
   loadingProducts = true;
   request('GET', "https://api.steemhunt.com/posts.json?days_ago=" + day + "&top=12").then(function(res) {
-    productListTemplate(res, day);
     loadingProducts = false;
+
+    if (res.posts.length > 0) {
+      productListTemplate(res, day);
+    } else {
+      nextPage();
+    }
   });
 }
 
