@@ -8,8 +8,7 @@ With the Steemhunt Chrome extension, you will:
 * See how many products are shared and how much hunter rewards are generated each day
 
 ## Download
-https://chrome.google.com/webstore/detail/steemhunt/hbffamghdehohidgmlnohhgkmgemplhc?utm_source=chrome-ntp-icon
-
+https://chrome.google.com/webstore/detail/steemhunt/hbffamghdehohidgmlnohhgkmgemplhc
 
 ## Get in touch
 * Web - https://steemhunt.com
