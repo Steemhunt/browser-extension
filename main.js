@@ -98,10 +98,10 @@ function productTemplate(product) {
           <span class="primary">${"$" + formatFloat(Math.round(product.payout_value*100)/100)}</span>
           <span class="middot">&middot;</span>
           <span class="svg-icon">${upvoteIcon}</span>
-          <span>${formatInt(product.children)}</span>
+          <span>${formatInt(product.valid_votes.length)}</span>
           <span class="middot">&middot;</span>
           <span class="svg-icon">${talkIcon}</span>
-          <span>${formatInt(product.valid_votes.length)}</span>
+          <span>${formatInt(product.children)}</span>
         </div>
         <p class="tagline">${product.tagline}</p>
       </a>
