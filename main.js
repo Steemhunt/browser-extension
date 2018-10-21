@@ -1,5 +1,5 @@
 const perDay = 12;
-let currentPage = 0;
+let currentPage = 1;
 let loadingProducts = true;
 
 const $listContainer = document.getElementById('listContainer');
