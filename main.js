@@ -1,5 +1,5 @@
 const perDay = 12;
-let currentPage = 1;
+let currentPage = 0;
 let loadingProducts = true;
 
 const $listContainer = document.getElementById('listContainer');
@@ -76,23 +76,43 @@ function loadDefault() {
   });
 }
 
-function getCachedImage(url, width, height) {
+function getCachedImage(url, width = 0, height = 0) {
   if (/\.gif$/.test(url)) {
     return `https://steemitimages.com/0x0/${url}`;
+  }
+
+  if (/\.mp4$/.test(url)) {
+    if (width === 240 && height === 240) {
+      return url.replace('.mp4', '-240x240.mp4');
+    } else {
+      return url;
+    }
   }
 
   return `https://steemitimages.com/${width}x${height}/${url}`;
 }
 
-
 function productTemplate(product) {
   const upvoteIcon = '<svg viewBox="64 64 896 896" class="" data-icon="up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 0 0 140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"></path></svg>';
   const talkIcon = '<svg viewBox="64 64 896 896" class="" data-icon="message" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M464 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm200 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-400 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z"></path></svg>';
+  let image;
+  if (/\.mp4$/.test(product.images[0].link)) {
+    image = `
+      <video alt="${product.title}" playsInline autoPlay="autoplay" muted loop>
+        <source src="${getCachedImage(product.images[0].link, 600, 400)}" />
+      </video>
+    `;
+  } else {
+    image = `
+      <img src="${product.images && getCachedImage(product.images[0].link, 600, 400)}" alt="${product.title}"/>
+    `;
+  }
+
   return template = `
     <div class="product-container">
       <a href=${'https://steemhunt.com/@' + product.author + '/' + product.permlink}>
         <div class="image-overlay"></div>
-        <img src=${getCachedImage(product.images[0].link, 600, 400)} />
+        ${image}
         <h3 class="primary">${product.title}</h3>
         <div class="stats">
           <span class="primary">${"$" + formatFloat(Math.round(product.payout_value*100)/100)}</span>

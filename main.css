@@ -136,7 +136,7 @@ a, a:active, a:hover, a:visited {
   left: 0;
 }
 
-.product-container img {
+.product-container img, .product-container video {
   border-radius: 4px;
   width: 300px;
   height: 200px;
