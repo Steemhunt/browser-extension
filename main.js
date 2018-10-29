@@ -76,20 +76,24 @@ function loadDefault() {
   });
 }
 
+function encode(uri) {
+  return encodeURI(decodeURI(uri));
+}
+
 function getCachedImage(url, width = 0, height = 0) {
   if (/\.gif$/.test(url)) {
-    return `https://steemitimages.com/0x0/${url}`;
+    return encode(`https://steemitimages.com/0x0/${url}`);
   }
 
   if (/\.mp4$/.test(url)) {
     if (width === 240 && height === 240) {
-      return url.replace('.mp4', '-240x240.mp4');
+      return encode(url.replace('.mp4', '-240x240.mp4'));
     } else {
-      return url;
+      return encode(url);
     }
   }
 
-  return `https://steemitimages.com/${width}x${height}/${url}`;
+  return encode(`https://steemitimages.com/${width}x${height}/${url}`);
 }
 
 function productTemplate(product) {
