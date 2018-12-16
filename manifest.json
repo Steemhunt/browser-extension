@@ -1,6 +1,6 @@
 {
   "name": "Steemhunt",
-  "version": "1.53.1",
+  "version": "1.53.3",
   "manifest_version": 2,
   "description": "Daily Ranking for Effortlessly Cool Products That Rewards Hunters",
   "icons": {
@@ -11,14 +11,14 @@
   },
   "permissions": [
     "*://*.steemhunt.com/*",
-    "storage",
-    "tabs"
+    "storage"
   ],
   "chrome_url_overrides": {
     "newtab": "main.html"
   },
   "web_accessible_resources": [
-    "images/logo.png"
+    "images/logo.png",
+    "manifest.json"
   ],
   "default_locale": "en",
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
