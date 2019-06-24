@@ -12,6 +12,6 @@ https://chrome.google.com/webstore/detail/steemhunt/hbffamghdehohidgmlnohhgkmgem
 
 ## Get in touch
 * Web - https://steemhunt.com
-* Email - steemhunt@gmail.com
+* Email - admin@hunt.town
 * Blog - https://steemit.com/@steemhunt
 * Discord - https://discord.gg/mWXpgks
